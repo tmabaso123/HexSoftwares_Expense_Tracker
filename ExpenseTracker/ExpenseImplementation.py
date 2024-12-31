@@ -28,47 +28,44 @@ class ExpenseImplementation:
                 )
             """)
 
-    def add_expense(self, amount, category, description=""):
+   def add_expense(self, amount, category, description=""):
         """
-        Adds a new expense to the tracker.
-
-        Parameters:
-        amount (float): The amount of the expense.
-        category (str): The category of the expense (e.g., food, rent).
-        description (str): A brief description of the expense (optional).
+        Adds a new expense to the database.
         """
-        self.expenses.append({"amount": amount, "category": category, "description": description})
+        date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        with self.connection:
+            self.connection.execute("""
+                INSERT INTO expenses (amount, category, description, date)
+                VALUES (?, ?, ?, ?)
+            """, (amount, category, description, date))
         print("Expense added successfully!")
 
     def view_summary(self):
         """
-        Displays a summary of expenses categorized by their categories.
+        Displays a summary of expenses by category.
         """
-        summary = {}
-        for expense in self.expenses:
-            category = expense["category"]
-            summary[category] = summary.get(category, 0) + expense["amount"]
-        print("\nExpense Summary:")
-        for category, total in summary.items():
-            print(f"{category}: ${total:.2f}")
+        with self.connection:
+            cursor = self.connection.execute("""
+                SELECT category, SUM(amount) as total
+                FROM expenses
+                GROUP BY category
+            """)
+            print("\nExpense Summary:")
+            for row in cursor:
+                category, total = row
+                print(f"{category}: ${total:.2f}")
 
     def total_expenses(self):
         """
-        Displays the total amount of all expenses.
+        Displays the total expenses.
         """
-        total = sum(expense["amount"] for expense in self.expenses)
-        print(f"\nTotal Expenses: ${total:.2f}")
-
-    def save_to_file(self, filename="expenses.json"):
-        """
-        Saves the list of expenses to a JSON file.
-
-        Parameters:
-        filename (str): The name of the file to save the expenses (default is 'expenses.json').
-        """
-        with open(filename, "w") as file:
-            json.dump(self.expenses, file)
-        print("Expenses saved to file!")
+        with self.connection:
+            cursor = self.connection.execute("""
+                SELECT SUM(amount) as total
+                FROM expenses
+            """)
+            total = cursor.fetchone()[0] or 0
+            print(f"\nTotal Expenses: ${total:.2f}")
 
     def load_from_file(self, filename="expenses.json"):
         """
