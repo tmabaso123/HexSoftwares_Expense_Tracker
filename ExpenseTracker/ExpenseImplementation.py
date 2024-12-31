@@ -67,18 +67,8 @@ class ExpenseImplementation:
             total = cursor.fetchone()[0] or 0
             print(f"\nTotal Expenses: ${total:.2f}")
 
-    def load_from_file(self, filename="expenses.json"):
+   def close(self):
         """
-        Loads the list of expenses from a JSON file.
-
-        Parameters:
-        filename (str): The name of the file to load the expenses from (default is 'expenses.json').
-
-        If the file does not exist, starts with an empty tracker.
+        Closes the database connection.
         """
-        try:
-            with open(filename, "r") as file:
-                self.expenses = json.load(file)
-            print("Expenses loaded from file!")
-        except FileNotFoundError:
-            print("File not found. Starting with an empty tracker.")
+        self.connection.close()
