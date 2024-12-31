@@ -13,6 +13,21 @@ class ExpenseImplementation:
         self.connection = sqlite3.connect(db_name)
         self.create_table()
 
+    def create_table(self):
+        """
+        Creates the expenses table if it doesn't already exist.
+        """
+        with self.connection:
+            self.connection.execute("""
+                CREATE TABLE IF NOT EXISTS expenses (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    amount REAL NOT NULL,
+                    category TEXT NOT NULL,
+                    description TEXT,
+                    date TEXT NOT NULL
+                )
+            """)
+
     def add_expense(self, amount, category, description=""):
         """
         Adds a new expense to the tracker.
