@@ -16,8 +16,7 @@ def main():
     saves the data before exiting.
     """
     tracker = ExpenseImplementation()
-    tracker.load_from_file()
-
+    
     while True:
         print("\nExpense Tracker")
         print("1. Add Expense")
@@ -41,9 +40,7 @@ def main():
         elif choice == "3":
             tracker.total_expenses()
         elif choice == "4":
-            tracker.save_to_file()
-        elif choice == "5":
-            tracker.save_to_file()
+            tracker.close()
             print("Goodbye!")
             break
         else:
