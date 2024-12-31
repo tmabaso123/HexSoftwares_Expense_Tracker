@@ -6,11 +6,12 @@ class ExpenseImplementation:
     A simple expense tracker to manage and categorize expenses, 
     view summaries, and save/load expense data to/from a file.
     """
-    def __init__(self):
+    def __init__(self, db_name="expenses.db"):
         """
-        Initializes the ExpenseImplementation with an empty list of expenses.
+        Initializes the ExpenseImplementation with a SQLite database.
         """
-        self.expenses = []
+        self.connection = sqlite3.connect(db_name)
+        self.create_table()
 
     def add_expense(self, amount, category, description=""):
         """
