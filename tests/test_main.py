@@ -20,3 +20,14 @@ class TestExpenseImplementation(unittest.TestCase):
             cursor = self.tracker.connection.execute("SELECT COUNT(*) FROM expenses")
             count = cursor.fetchone()[0]
         self.assertEqual(count, 1)
+
+    def test_view_summary(self):
+        """Test viewing the summary of expenses by category."""
+        self.tracker.add_expense(50.0, "Food", "Lunch")
+        self.tracker.add_expense(30.0, "Food", "Snack")
+        self.tracker.add_expense(20.0, "Transport", "Bus fare")
+        
+        with patch("builtins.print") as mock_print:
+            self.tracker.view_summary()
+            mock_print.assert_any_call("Food: $80.00")
+            mock_print.assert_any_call("Transport: $20.00")
