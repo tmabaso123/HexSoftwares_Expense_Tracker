@@ -1,4 +1,4 @@
-from ExpenseTracker.ExpenseImplementation import ExpenseImplementation
+from expensetracker import ExpenseImplementation
 
 
 def main():

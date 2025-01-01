@@ -28,7 +28,7 @@ class ExpenseImplementation:
                 )
             """)
 
-   def add_expense(self, amount, category, description=""):
+    def add_expense(self, amount, category, description=""):
         """
         Adds a new expense to the database.
         """
@@ -67,8 +67,8 @@ class ExpenseImplementation:
             total = cursor.fetchone()[0] or 0
             print(f"\nTotal Expenses: ${total:.2f}")
 
-   def close(self):
+    def close(self):
         """
         Closes the database connection.
         """
-        self.connection.close()
+        self.connection.close() 
