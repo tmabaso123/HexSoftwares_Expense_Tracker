@@ -7,3 +7,8 @@ class TestExpenseImplementation(unittest.TestCase):
     def setUpClass(cls):
         """Create a new ExpenseImplementation instance for testing."""
         cls.tracker = ExpenseImplementation(db_name=":memory:")
+
+    def setUp(self):
+        """Reset the table before each test."""
+        with self.tracker.connection:
+            self.tracker.connection.execute("DELETE FROM expenses")
