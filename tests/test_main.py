@@ -50,3 +50,20 @@ class TestExpenseImplementation(unittest.TestCase):
             self.tracker.list_expenses()
             mock_print.assert_any_call((1, 50.0, "Food", "Lunch", ""))
             mock_print.assert_any_call((2, 30.0, "Transport", "Bus fare", ""))
+
+    def test_delete_expense(self):
+        """Test deleting an expense."""
+        self.tracker.add_expense(50.0, "Food", "Lunch")
+        self.tracker.add_expense(30.0, "Food", "Snack")
+        
+        with self.tracker.connection:
+            cursor = self.tracker.connection.execute("SELECT COUNT(*) FROM expenses")
+            count_before = cursor.fetchone()[0]
+        
+        self.tracker.delete_expense(1)  # Delete expense with ID 1
+        
+        with self.tracker.connection:
+            cursor = self.tracker.connection.execute("SELECT COUNT(*) FROM expenses")
+            count_after = cursor.fetchone()[0]
+        
+        self.assertEqual(count_before - 1, count_after)
