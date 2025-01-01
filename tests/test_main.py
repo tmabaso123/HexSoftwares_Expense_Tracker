@@ -59,11 +59,14 @@ class TestExpenseImplementation(unittest.TestCase):
         with self.tracker.connection:
             cursor = self.tracker.connection.execute("SELECT COUNT(*) FROM expenses")
             count_before = cursor.fetchone()[0]
-        
         self.tracker.delete_expense(1)  # Delete expense with ID 1
         
         with self.tracker.connection:
             cursor = self.tracker.connection.execute("SELECT COUNT(*) FROM expenses")
             count_after = cursor.fetchone()[0]
-        
         self.assertEqual(count_before - 1, count_after)
+
+    @classmethod
+    def tearDownClass(cls):
+        """Close the database connection after all tests."""
+        cls.tracker.close()
