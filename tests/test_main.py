@@ -31,3 +31,12 @@ class TestExpenseImplementation(unittest.TestCase):
             self.tracker.view_summary()
             mock_print.assert_any_call("Food: $80.00")
             mock_print.assert_any_call("Transport: $20.00")
+
+    def test_total_expenses(self):
+        """Test calculating total expenses."""
+        self.tracker.add_expense(50.0, "Food", "Lunch")
+        self.tracker.add_expense(30.0, "Food", "Snack")
+        
+        with patch("builtins.print") as mock_print:
+            self.tracker.total_expenses()
+            mock_print.assert_any_call("Total Expenses: $80.00")
