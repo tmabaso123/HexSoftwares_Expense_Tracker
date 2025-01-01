@@ -67,6 +67,14 @@ class ExpenseImplementation:
             total = cursor.fetchone()[0] or 0
             print(f"\nTotal Expenses: ${total:.2f}")
 
+     def list_expenses(self):
+        """Lists all expenses in the database."""
+        self.cursor.execute("SELECT id, amount, category, description, date FROM expenses")
+        expenses = self.cursor.fetchall()
+        print("\nAll Expenses:")
+        for expense in expenses:
+            print(expense)
+
     def close(self):
         """
         Closes the database connection.
