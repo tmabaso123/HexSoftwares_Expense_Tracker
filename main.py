@@ -12,9 +12,10 @@ def main():
     1. Add an expense.
     2. View a summary of expenses.
     3. View total expenses.
-    4. Close database connection
-    5. Exit the application.
-
+    4. List expenses
+    5. Delete an expense
+    6. Close database connection
+    
     The application loads existing expenses from a file (if available) and
     saves the data before exiting.
     """
@@ -25,9 +26,10 @@ def main():
         print("1. Add Expense")
         print("2. View Summary")
         print("3. View Total Expenses")
-        print("4. Close Connection")
-        print("5. Exit")
-
+        print("4. List Expenses")
+        print("5. Delete Expense by ID")
+        print("6. Close Connection")
+        
         choice = input("Choose an option: ")
 
         if choice == "1":
@@ -43,6 +45,10 @@ def main():
         elif choice == "3":
             tracker.total_expenses()
         elif choice == "4":
+            tracker.list_expenses()
+        elif choice == "5":
+            tracker.delete_expense()
+        elif choice == "6":
             tracker.close()
             print("Goodbye!")
             break
