@@ -1,4 +1,7 @@
-from expensetracker import ExpenseImplementation
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from expensetracker.ExpenseImplementation import ExpenseImplementation
 
 
 def main():
@@ -9,7 +12,7 @@ def main():
     1. Add an expense.
     2. View a summary of expenses.
     3. View total expenses.
-    4. Save expenses to a file.
+    4. Close database connection
     5. Exit the application.
 
     The application loads existing expenses from a file (if available) and
@@ -22,7 +25,7 @@ def main():
         print("1. Add Expense")
         print("2. View Summary")
         print("3. View Total Expenses")
-        print("4. Save to File")
+        print("4. Close Connection")
         print("5. Exit")
 
         choice = input("Choose an option: ")
