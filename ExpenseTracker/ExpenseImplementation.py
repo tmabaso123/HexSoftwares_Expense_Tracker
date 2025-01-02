@@ -1,11 +1,13 @@
 import sqlite3
 from datetime import datetime
 
+
 class ExpenseImplementation:
     """
-    A simple expense tracker to manage and categorize expenses, 
+    A simple expense tracker to manage and categorize expenses,
     view summaries, and save/load expense data to/from a file.
     """
+
     def __init__(self, db_name="expenses.db"):
         """
         Initializes the ExpenseImplementation with a SQLite database.
@@ -18,7 +20,8 @@ class ExpenseImplementation:
         Creates the expenses table if it doesn't already exist.
         """
         with self.connection:
-            self.connection.execute("""
+            self.connection.execute(
+                """
                 CREATE TABLE IF NOT EXISTS expenses (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     amount REAL NOT NULL,
@@ -26,7 +29,8 @@ class ExpenseImplementation:
                     description TEXT,
                     date TEXT NOT NULL
                 )
-            """)
+            """
+            )
 
     def add_expense(self, amount, category, description=""):
         """
@@ -34,10 +38,13 @@ class ExpenseImplementation:
         """
         date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         with self.connection:
-            self.connection.execute("""
+            self.connection.execute(
+                """
                 INSERT INTO expenses (amount, category, description, date)
                 VALUES (?, ?, ?, ?)
-            """, (amount, category, description, date))
+            """,
+                (amount, category, description, date),
+            )
         print("Expense added successfully!")
 
     def view_summary(self):
@@ -45,11 +52,13 @@ class ExpenseImplementation:
         Displays a summary of expenses by category.
         """
         with self.connection:
-            cursor = self.connection.execute("""
+            cursor = self.connection.execute(
+                """
                 SELECT category, SUM(amount) as total
                 FROM expenses
                 GROUP BY category
-            """)
+            """
+            )
             print("\nExpense Summary:")
             for row in cursor:
                 category, total = row
@@ -60,16 +69,20 @@ class ExpenseImplementation:
         Displays the total expenses.
         """
         with self.connection:
-            cursor = self.connection.execute("""
+            cursor = self.connection.execute(
+                """
                 SELECT SUM(amount) as total
                 FROM expenses
-            """)
+            """
+            )
             total = cursor.fetchone()[0] or 0
             print(f"\nTotal Expenses: ${total:.2f}")
 
-     def list_expenses(self):
+    def list_expenses(self):
         """Lists all expenses in the database."""
-        self.cursor.execute("SELECT id, amount, category, description, date FROM expenses")
+        self.cursor.execute(
+            "SELECT id, amount, category, description, date FROM expenses"
+        )
         expenses = self.cursor.fetchall()
         print("\nAll Expenses:")
         for expense in expenses:
@@ -85,4 +98,4 @@ class ExpenseImplementation:
         """
         Closes the database connection.
         """
-        self.connection.close() 
+        self.connection.close()

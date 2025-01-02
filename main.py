@@ -1,5 +1,6 @@
 import sys
 import os
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from expensetracker.ExpenseImplementation import ExpenseImplementation
 
@@ -15,12 +16,12 @@ def main():
     4. List expenses
     5. Delete an expense
     6. Close database connection
-    
+
     The application loads existing expenses from a file (if available) and
     saves the data before exiting.
     """
     tracker = ExpenseImplementation()
-    
+
     while True:
         print("\nExpense Tracker")
         print("1. Add Expense")
@@ -29,7 +30,7 @@ def main():
         print("4. List Expenses")
         print("5. Delete Expense by ID")
         print("6. Close Connection")
-        
+
         choice = input("Choose an option: ")
 
         if choice == "1":
@@ -54,6 +55,7 @@ def main():
             break
         else:
             print("Invalid choice. Please try again.")
+
 
 if __name__ == "__main__":
     main()
