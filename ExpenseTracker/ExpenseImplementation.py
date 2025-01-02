@@ -91,8 +91,8 @@ class ExpenseImplementation:
 
     def delete_expense(self, expense_id):
         """Deletes an expense from the database by ID."""
-        self.cursor.execute("""DELETE FROM expenses WHERE id = ?""", (expense_id,))
-        self.conn.commit()
+        with self.connection:
+            self.connection.execute("""DELETE FROM expenses WHERE id = ?""", (expense_id,))
         print("Expense deleted successfully!")
 
     def close(self):
