@@ -1,9 +1,5 @@
-import sys
-import os
-
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from expensetracker.ExpenseImplementation import ExpenseImplementation
-
+from user_interface.ExpenseTrackerApp import ExpenseTrackerApp
+import tkinter as tk
 
 def main():
     """
@@ -20,7 +16,9 @@ def main():
     The application loads existing expenses from a file (if available) and
     saves the data before exiting.
     """
-    tracker = ExpenseImplementation()
+    root = tk.Tk()
+    app = ExpenseTrackerApp(root)
+    root.mainloop()
 
     while True:
         print("\nExpense Tracker")
