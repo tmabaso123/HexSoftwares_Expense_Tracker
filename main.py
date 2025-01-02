@@ -48,7 +48,12 @@ def main():
         elif choice == "4":
             tracker.list_expenses()
         elif choice == "5":
-            tracker.delete_expense()
+            try:
+                expense_id = int(input("Enter the ID of the expense to delete: "))
+                tracker.delete_expense(expense_id)
+            except ValueError:
+                print("Invalid input. Please enter a valid expense ID.")
+            tracker.delete_expense(expense_id)
         elif choice == "6":
             tracker.close()
             print("Goodbye!")
