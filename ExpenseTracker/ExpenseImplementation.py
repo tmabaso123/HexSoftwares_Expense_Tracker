@@ -84,7 +84,7 @@ class ExpenseImplementation:
             cursor =self.connection.execute(
                 "SELECT id, amount, category, description, date FROM expenses"
             )
-            expenses = self.cursor.fetchall()
+            expenses = cursor.fetchall()
             print("\nAll Expenses:")
             for expense in expenses:
                 print(expense)
