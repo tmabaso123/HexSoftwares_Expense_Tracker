@@ -80,13 +80,14 @@ class ExpenseImplementation:
 
     def list_expenses(self):
         """Lists all expenses in the database."""
-        self.cursor.execute(
-            "SELECT id, amount, category, description, date FROM expenses"
-        )
-        expenses = self.cursor.fetchall()
-        print("\nAll Expenses:")
-        for expense in expenses:
-            print(expense)
+        with self.connection:
+            cursor =self.connection.execute(
+                "SELECT id, amount, category, description, date FROM expenses"
+            )
+            expenses = self.cursor.fetchall()
+            print("\nAll Expenses:")
+            for expense in expenses:
+                print(expense)
 
     def delete_expense(self, expense_id):
         """Deletes an expense from the database by ID."""
