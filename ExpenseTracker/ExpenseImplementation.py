@@ -76,7 +76,7 @@ class ExpenseImplementation:
             """
             )
             total = cursor.fetchone()[0] or 0
-            print(f"\nTotal Expenses: ${total:.2f}")
+        return total
 
     def list_expenses(self):
         """Lists all expenses in the database."""
