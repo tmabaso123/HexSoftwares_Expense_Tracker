@@ -36,6 +36,13 @@ MANIFEST
 pip-log.txt
 pip-delete-this-directory.txt
 
+# Editor-specific files
+.vscode/
+.idea/         
+*.swp           
+*.sublime-*    
+
+
 # Unit test / coverage reports
 htmlcov/
 .tox/
